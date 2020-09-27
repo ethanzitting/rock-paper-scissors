@@ -3,10 +3,25 @@
 	<head>
 		<title>Tidle</title>
 		<script>
+			function computerPlay() {
+				computerHand = Math.random() * 3;
+				let computerSign;
 
+				if (computerHand > 2) {
+					computerSign = "Rock";
+				} else if (computerHand > 1) {
+					computerSign = "Scissors";
+				} else {
+					computerSign = "Paper";
+				}
+				console.log(computerSign);
+			}
+			computerPlay();
+			computerPlay();
+			computerPlay();
 		</script>
 	</head>
 	<body>
-		
+
 	</body>
 </html>
