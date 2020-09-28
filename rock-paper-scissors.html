@@ -3,7 +3,7 @@
 	<head>
 		<title>Title</title>
 		<script>
-			// Generates the computer's hand
+		    // Generates the computer's hand
 			function computerPlay() {
 				computerHand = Math.random() * 3;
 				let computerSign;
@@ -61,11 +61,14 @@
 
 			// Pits the computer's hand against the user's hand.
 			function singleMatch() {
+				// Generates hands of two players.
 				let computerSign = computerPlay();
 				let userSign = userPlay();
 				
+				// Calculates the winner
 				let winner = checkWinner(userSign, computerSign);
 				
+				// Generates and returns the proper result sentence.
 				if (winner === "user") {
 					return `You Win! ${userSign} beats ${computerSign}!`;
 				} else if (winner === "computer") {
@@ -75,14 +78,18 @@
 				}
 			}
 			
+			// Automatically plays 5 games in a row.
 			function game() {
 				let userTotal = 0;
 				let computerTotal = 0;
 
+				// for loop driving the 5 games
 				for (i = 0; i < 5; i++) {
+					// Calls a game
 					let results = singleMatch();
 					console.log(results);
 
+					// Checks results
 					if (results[4] === "W") {
 						userTotal++;
 					} else if (results[4] === "L") {
