@@ -1,24 +1,99 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Tidle</title>
+		<title>Title</title>
 		<script>
+			// Generates the computer's hand
 			function computerPlay() {
 				computerHand = Math.random() * 3;
 				let computerSign;
 
+				// Turns random number into hand
 				if (computerHand > 2) {
-					computerSign = "Rock";
+					computerSign = "rock";
 				} else if (computerHand > 1) {
-					computerSign = "Scissors";
+					computerSign = "scissors";
 				} else {
-					computerSign = "Paper";
+					computerSign = "paper";
 				}
-				console.log(computerSign);
+
+				return computerSign;
 			}
-			computerPlay();
-			computerPlay();
-			computerPlay();
+
+			// Prompts user for their hand.
+			function userPlay() {
+				let userSign = prompt("Choose your weapon.");
+				userSign = userSign.toLowerCase();
+
+				return userSign;
+			}
+
+			function checkWinner(userSign, computerSign) {
+				// This goes through all the 9 combinations of hands and determines the winner.
+				if (userSign === "rock") {
+					if (computerSign === "scissors") {
+						return "user";
+					} else if (computerSign === "paper") {
+						return "computer";
+					} else {
+						return "tie";
+					}
+				} else if (userSign === "scissors") {
+					if (computerSign === "rock") {
+						return "computer";
+					} else if (computerSign === "paper") {
+						return "user";
+					} else {
+						return "tie";
+					}
+				} else {
+					if (userSign === "paper") {
+						if (computerSign === "rock") {
+							return "user";
+						} else if (computerSign === "paper") {
+							return "tie";
+						} else {
+							return "computer";
+						}
+					}
+				}
+			}
+
+			// Pits the computer's hand against the user's hand.
+			function singleMatch() {
+				let computerSign = computerPlay();
+				let userSign = userPlay();
+				
+				let winner = checkWinner(userSign, computerSign);
+				
+				if (winner === "user") {
+					return `You Win! ${userSign} beats ${computerSign}!`;
+				} else if (winner === "computer") {
+					return `You Lose! ${userSign} loses to ${computerSign}!`;
+				} else {
+					return `It's a tie! You both chose ${userSign}!`;
+				}
+			}
+			
+			function game() {
+				let userTotal = 0;
+				let computerTotal = 0;
+
+				for (i = 0; i < 5; i++) {
+					let results = singleMatch();
+					console.log(results);
+
+					if (results[4] === "W") {
+						userTotal++;
+					} else if (results[4] === "L") {
+						computerTotal++;
+					}
+				}
+
+				console.log(`Your score was ${userTotal} and the computer's score was ${computerTotal}`);
+			}
+
+			game();
 		</script>
 	</head>
 	<body>
