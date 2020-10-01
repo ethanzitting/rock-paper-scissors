@@ -3,7 +3,7 @@
 	<head>
 		<title>Title</title>
 		<style>
-			#container, #userInput, #resultsContainer {
+			#container, #userInput, #resultsContainer, #scoreContainer {
 				display: inline-flex;
 				width: 100%;
 				margin-right: auto;
@@ -13,7 +13,7 @@
 				margin: 20px;
 				align-items: center;
 			}
-			#userHand, #vs, #computerHand, button {
+			#userHand, #vs, #computerHand, button, p{
 				margin: 10px;
 			}
 		</style>
@@ -38,6 +38,16 @@
 		</div>
 		<div id="resultsContainer">
 			<p id="results">Results</p>
+		</div>
+		<div id="scoreContainer">
+			<div>
+				<p>User Score</p>
+				<p id="userScore">0</p>
+			</div>
+			<div>
+				<p>Computer Score</p>
+				<p id="computerScore">0</p>
+			</div>
 		</div>
 		<script>
 		    // Generates the computer's hand
@@ -103,20 +113,32 @@
 				let winner = checkWinner(userSign, computerSign);
 				
 				const results = document.querySelector('#results');
+				const userScore = document.querySelector('#userScore');
+				const computerScore = document.querySelector('#computerScore');
+
+				if (isNaN(+userScore.textContent)) {
+					userScore.textContent = 0;
+					computerScore.textContent = 0;
+				}
 
 				// Generates and returns the proper result sentence.
 				if (winner === "user") {
 					results.textContent = "You won!";
 					results.style.cssText = "color: green";
-					return "user";
+					userScore.textContent = +userScore.textContent + 1;
 				} else if (winner === "computer") {
 					results.textContent = "You lost!";
 					results.style.cssText = "color: red";
-					return "computer";
+					computerScore.textContent = +computerScore.textContent + 1;
 				} else {
 					results.textContent = "You tied!";
 					results.style.cssText = "color: black";
-					return "tie";
+				}
+
+				if (+userScore.textContent === 5) {
+					userScore.textContent = "You Won!";
+				} else if (+computerScore.textContent === 5) {
+					userScore.textContent = "You Lost!";
 				}
 			}
 
