@@ -3,7 +3,7 @@
 	<head>
 		<title>Title</title>
 		<style>
-			#container, #userInput {
+			#container, #userInput, #resultsContainer {
 				display: inline-flex;
 				width: 100%;
 				margin-right: auto;
@@ -13,34 +13,47 @@
 				margin: 20px;
 				align-items: center;
 			}
-			#userHand, #vs, #computerHand {
+			#userHand, #vs, #computerHand, button {
 				margin: 10px;
 			}
 		</style>
+	</head>
+	<body>
+		<div id="userInput">
+				<p>Choose Your Weapon</p>
+				<button id="rock">Rock</button>
+				<button id="paper">Paper</button>
+				<button id="scissors">Scissors</button>
+		</div>
+		<div id="container">
+			<div id="userHand">
+				<p>User Hand</p>
+				<p id="userPara">Output</p>
+			</div>
+			<div id="vs">vs</div>
+			<div id="computerHand">
+				<p>Computer Hand</p>
+				<p id="computerPara">Output</p>
+			</div>
+		</div>
+		<div id="resultsContainer">
+			<p id="results">Results</p>
+		</div>
 		<script>
 		    // Generates the computer's hand
-			function playsComputer() {
-				computerHand = Math.random() * 3;
-				let computerSign;
+			function playComputer() {
+				let computerHand = Math.random() * 3;
 
 				// Turns random number into hand
 				if (computerHand > 2) {
-					computerSign = "rock";
+					computerHand = "rock";
 				} else if (computerHand > 1) {
-					computerSign = "scissors";
+					computerHand = "scissors";
 				} else {
-					computerSign = "paper";
+					computerHand = "paper";
 				}
 
-				return computerSign;
-			}
-
-			// Prompts user for their hand.
-			function playsUser() {
-				let userSign = prompt("Choose your weapon.");
-				userSign = userSign.toLowerCase();
-
-				return userSign;
+				return computerHand;
 			}
 
 			function checkWinner(userSign, computerSign) {
@@ -75,43 +88,45 @@
 			}
 
 			// Pits the computer's hand against the user's hand.
-			function playsSingleGame() {
-				// Generates hands of two players.
-				let computerSign = playsComputer();
-				let userSign = playsUser();
+			function playRound(userSign) {
+				// Generates computer hand.
+				let computerSign = playComputer();
 				
+				// Puts Waring Hands onscreen.
+				const userPara = document.querySelector('#userPara');
+				userPara.textContent = userSign;
+
+				const computerPara = document.querySelector('#computerPara');
+				computerPara.textContent = computerSign;
+
 				// Calculates the winner
 				let winner = checkWinner(userSign, computerSign);
 				
+				const results = document.querySelector('#results');
+
 				// Generates and returns the proper result sentence.
 				if (winner === "user") {
-					return `You Win! ${userSign} beats ${computerSign}!`;
+					results.textContent = "You won!";
+					results.style.cssText = "color: green";
+					return "user";
 				} else if (winner === "computer") {
-					return `You Lose! ${userSign} loses to ${computerSign}!`;
+					results.textContent = "You lost!";
+					results.style.cssText = "color: red";
+					return "computer";
 				} else {
-					return `It's a tie! You both chose ${userSign}!`;
+					results.textContent = "You tied!";
+					results.style.cssText = "color: black";
+					return "tie";
 				}
 			}
+
+			const buttons = document.querySelectorAll('button');
+
+			buttons.forEach((button) => {
+				button.addEventListener('click', () => {
+					playRound(button.id);
+				});
+			});
 		</script>
-	</head>
-	<body>
-		<div id="userInput">
-			<form>
-				<label for="userText">Choose Your Weapon</label>
-				<input type="text" id="userText">
-				<button>Play</button>
-			</form>
-		</div>
-		<div id="container">
-			<div id="userHand">
-				<p>User Hand</p>
-				<p>Output</p>
-			</div>
-			<div id="vs">vs</div>
-			<div id="computerHand">
-				<p>Computer Hand</p>
-				<p>Output</p>
-			</div>
-		</div>
 	</body>
 </html>
