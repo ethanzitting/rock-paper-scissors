@@ -2,9 +2,24 @@
 <html>
 	<head>
 		<title>Title</title>
+		<style>
+			#container, #userInput {
+				display: inline-flex;
+				width: 100%;
+				margin-right: auto;
+				margin-left: auto;
+				height: 100%;
+				justify-content: center;
+				margin: 20px;
+				align-items: center;
+			}
+			#userHand, #vs, #computerHand {
+				margin: 10px;
+			}
+		</style>
 		<script>
 		    // Generates the computer's hand
-			function computerPlay() {
+			function playsComputer() {
 				computerHand = Math.random() * 3;
 				let computerSign;
 
@@ -21,7 +36,7 @@
 			}
 
 			// Prompts user for their hand.
-			function userPlay() {
+			function playsUser() {
 				let userSign = prompt("Choose your weapon.");
 				userSign = userSign.toLowerCase();
 
@@ -60,10 +75,10 @@
 			}
 
 			// Pits the computer's hand against the user's hand.
-			function singleMatch() {
+			function playsSingleGame() {
 				// Generates hands of two players.
-				let computerSign = computerPlay();
-				let userSign = userPlay();
+				let computerSign = playsComputer();
+				let userSign = playsUser();
 				
 				// Calculates the winner
 				let winner = checkWinner(userSign, computerSign);
@@ -77,33 +92,26 @@
 					return `It's a tie! You both chose ${userSign}!`;
 				}
 			}
-			
-			// Automatically plays 5 games in a row.
-			function game() {
-				let userTotal = 0;
-				let computerTotal = 0;
-
-				// for loop driving the 5 games
-				for (i = 0; i < 5; i++) {
-					// Calls a game
-					let results = singleMatch();
-					console.log(results);
-
-					// Checks results
-					if (results[4] === "W") {
-						userTotal++;
-					} else if (results[4] === "L") {
-						computerTotal++;
-					}
-				}
-
-				console.log(`Your score was ${userTotal} and the computer's score was ${computerTotal}`);
-			}
-
-			game();
 		</script>
 	</head>
 	<body>
-
+		<div id="userInput">
+			<form>
+				<label for="userText">Choose Your Weapon</label>
+				<input type="text" id="userText">
+				<button>Play</button>
+			</form>
+		</div>
+		<div id="container">
+			<div id="userHand">
+				<p>User Hand</p>
+				<p>Output</p>
+			</div>
+			<div id="vs">vs</div>
+			<div id="computerHand">
+				<p>Computer Hand</p>
+				<p>Output</p>
+			</div>
+		</div>
 	</body>
 </html>
