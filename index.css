@@ -1,0 +1,13 @@
+#container, #userInput, #resultsContainer, #scoreContainer {
+	display: inline-flex;
+	width: 100%;
+	margin-right: auto;
+	margin-left: auto;
+	height: 100%;
+	justify-content: center;
+	margin: 20px;
+	align-items: center;
+}
+#userHand, #vs, #computerHand, button, p{
+	margin: 10px;
+}
